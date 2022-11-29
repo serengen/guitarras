@@ -6,7 +6,7 @@ import { getGuitarra } from "~/models/guitarras.server";
 
 export async function venta(){
   const carrito = JSON.parse(localStorage.getItem('carrito'))
-  const respuesta = await fetch(`http://localhost:1337/api/guitarras?filters[id]=${carrito[0].id}&populate=imagen`);
+  const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras?filters[id]=${carrito[0].id}&populate=imagen`);
   const resultado = await respuesta.json();
   
   
@@ -20,7 +20,6 @@ export async function venta(){
       }
       
     }
-  
     try{
           const requestOptions = {
           method: 'PUT',
@@ -28,7 +27,7 @@ export async function venta(){
           body: JSON.stringify(jsonbody)
       };
       
-      const respuesta = await fetch(`http://localhost:1337/api/guitarras/${carrito[0].id}`, requestOptions);
+      const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras/${carrito[0].id}`, requestOptions);
       const resultado = await respuesta.json();
     }catch(error){
       console.log(error)
