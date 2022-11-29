@@ -5,8 +5,8 @@ import Post from './post'
 function ListadoPosts({posts}) {
   return (
     <>
-    <h2 className='heading'>Blog</h2>
       <div className='blog'>
+      <h2 className='heading'>Blog</h2>
         {posts?.map( post =>(
         <Post
         key={post.id}
