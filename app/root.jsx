@@ -80,7 +80,9 @@ export default function App(){
         const carritoActualizado = carrito.filter(guitarraState => guitarraState.id !== id)
         setCarrito(carritoActualizado)
       }
-    
+    const vaciarCarrito = () => {
+        setCarrito([])
+    }
     
     return(
         <Document>
@@ -90,6 +92,7 @@ export default function App(){
                     carrito,
                     actualizarCantidad,
                     eliminarGuitarra,
+                    vaciarCarrito
                 }}
             />
         </Document>
