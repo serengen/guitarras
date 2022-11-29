@@ -8,7 +8,7 @@ export async function venta(){
   const carrito = JSON.parse(localStorage.getItem('carrito'))
   
   
-
+  console.log("asfbdshfvbadshukvawhukcdsbhukavbdsyuvbayvuidsbu")
   let jsonbody = {
     data:{
       'stock' :  carrito[0].cantidad
@@ -22,7 +22,7 @@ export async function venta(){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(jsonbody)
     };
-    console.log(carrito)
+    
     const respuesta = await fetch(`http://localhost:1337/api/guitarras/${carrito[0].id}`, requestOptions);
     const resultado = await respuesta.json();
     return resultado
