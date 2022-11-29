@@ -8,6 +8,7 @@ function Blog() {
 
   return (
     <main className='contenedor'>
+      <h2 className='heading'>Blog</h2>
       <Outlet />
     </main>
   )

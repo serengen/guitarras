@@ -6,7 +6,6 @@ function ListadoPosts({posts}) {
   return (
     <>
       <div className='blog'>
-      <h2 className='heading'>Blog</h2>
         {posts?.map( post =>(
         <Post
         key={post.id}
