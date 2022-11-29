@@ -1,5 +1,5 @@
 export async function getCurso(){
-    const respuesta = await fetch(`${process.env.API_URL}/curso?populate=imagen`)
+    const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/curso?populate=imagen`)
     const resultado = await respuesta.json();
     return resultado;
 }
