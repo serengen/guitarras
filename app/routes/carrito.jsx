@@ -29,6 +29,7 @@ export async function venta(){
       
       const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras/${carrito[0].id}`, requestOptions);
       const resultado = await respuesta.json();
+      console.log(resultado)
     }catch(error){
       console.log(error)
     }
