@@ -34,7 +34,7 @@ function Index() {
             curso = {curso.attributes}
         />
 
-        <section>
+        <section className="contenedor">
             <div className='blog'>
                 <ListadoPosts 
                 posts = {posts}
