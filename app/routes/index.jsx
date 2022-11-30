@@ -35,11 +35,9 @@ function Index() {
         />
 
         <section className="contenedor">
-            <div className='blog'>
                 <ListadoPosts 
                 posts = {posts}
                 />
-            </div>
         </section>
     </>
   )
