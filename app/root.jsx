@@ -66,6 +66,7 @@ export default function App(){
         }else{
             setCarrito(([...carrito,guitarra]))
         }
+        alert("Guitarra Agregada con exito")
     }
     const actualizarCantidad = guitarra => {
         const carritoActualizado = carrito.map(guitarraState =>{

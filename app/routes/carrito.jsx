@@ -6,35 +6,37 @@ import { getGuitarra } from "~/models/guitarras.server";
 
 export async function venta(){
   const carrito = JSON.parse(localStorage.getItem('carrito'))
-  const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras?filters[id]=${carrito[0].id}&populate=imagen`);
-  const resultado = await respuesta.json();
   
-  
-  const venta = resultado.data[0].attributes.stock - carrito[0].cantidad;
-  if (venta < 0) {
-    alert("No hay suficientes guitarras en stock")
-  } else {
-    let jsonbody = {
-      data:{
-        'stock' :  venta
+  Promise.all(carrito.map(async(guitarra) => {
+    const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras?filters[id]=${guitarra.id}&populate=imagen`);
+    const resultado = await respuesta.json();
+    const venta = resultado.data[0].attributes.stock - guitarra.cantidad;
+    if (venta < 0) {
+      alert("No hay suficientes guitarras en stock")
+    } else {
+      let jsonbody = {
+        data:{
+          'stock' :  venta
+        }
+        
       }
-      
+      try{
+            const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(jsonbody)
+        };
+        
+        const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras/${guitarra.id}`, requestOptions);
+        const resultado = await respuesta.json();
+        console.log(resultado)
+        alert("Compra Exitosa")
+      }catch(error){
+        console.log(error)
+      }
     }
-    try{
-          const requestOptions = {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(jsonbody)
-      };
-      
-      const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras/${carrito[0].id}`, requestOptions);
-      const resultado = await respuesta.json();
-      console.log(resultado)
-      alert("Compra Exitosa")
-    }catch(error){
-      console.log(error)
-    }
-  }
+  }));
+
   
 }
 
