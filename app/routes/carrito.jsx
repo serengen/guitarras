@@ -6,7 +6,7 @@ import { getGuitarra } from "~/models/guitarras.server";
 
 export async function venta(){
   const carrito = JSON.parse(localStorage.getItem('carrito'))
-  
+
   Promise.all(carrito.map(async(guitarra) => {
     const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras?filters[id]=${guitarra.id}&populate=imagen`);
     const resultado = await respuesta.json();
@@ -14,6 +14,42 @@ export async function venta(){
     if (venta < 0) {
       alert("No hay suficientes guitarras en stock")
     } else {
+      
+    }
+  }));
+
+  Promise.all(carrito.map(async(guitarra) => {
+    const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras?filters[id]=${guitarra.id}&populate=imagen`);
+    const resultado = await respuesta.json();
+    const venta = resultado.data[0].attributes.stock - guitarra.cantidad;
+    if (venta < 0) {
+      alert("No hay suficientes guitarras en stock")
+    } else {
+      let comprabody = {
+        data:{
+          'nombre' :  'Jorge Perez',
+          'email': 'jperez@gmail.com',
+          'direccion': 'Bandera de los andes 125, Guaymallen, Mendoza',
+          'contraseña': '123456',
+          'cantidad': guitarra.cantidad,
+          'idGuitarra': guitarra.id,
+        }
+        
+      }
+      try{
+            const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(comprabody)
+        };
+        
+        const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/compradores/`, requestOptions);
+        const resultado = await respuesta.json();
+        // console.log(resultado)
+      }catch(error){
+        console.log(error)
+      }
+
       let jsonbody = {
         data:{
           'stock' :  venta
@@ -29,7 +65,7 @@ export async function venta(){
         
         const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras/${guitarra.id}`, requestOptions);
         const resultado = await respuesta.json();
-        console.log(resultado)
+        // console.log(resultado)
         alert("Compra Exitosa")
       }catch(error){
         console.log(error)
