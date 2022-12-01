@@ -331,9 +331,13 @@
     font-weight: 700;
     transition-property: background-color;
     transition: 300ms;
+    border-radius: 7px;
+    width: 70%;
+    border: none;
 }
 .compra .finalizar:hover{
     background-color: var(--primary);
+    cursor: pointer;
 }
 
 .formulario form{

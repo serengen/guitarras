@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ClientOnly } from "remix-utils"
 import { putCarrito } from "~/models/compra.server";
 import { getGuitarra } from "~/models/guitarras.server";
+import { useNavigate } from 'react-router-dom';
 
 export async function venta(){
   const carrito = JSON.parse(localStorage.getItem('carrito'))
@@ -66,7 +67,6 @@ export async function venta(){
         const respuesta = await fetch(`https://guitarla-server.herokuapp.com/api/guitarras/${guitarra.id}`, requestOptions);
         const resultado = await respuesta.json();
         // console.log(resultado)
-        alert("Compra Exitosa")
       }catch(error){
         console.log(error)
       }
@@ -77,7 +77,7 @@ export async function venta(){
 }
 
 function Carrito() {
-
+  const navigate = useNavigate();
   const [total, setTotal] = useState(0)
   const {carrito, actualizarCantidad,eliminarGuitarra,vaciarCarrito} = useOutletContext();
   
@@ -128,9 +128,13 @@ function Carrito() {
           <aside className="resumen">
               <h3>Resumen del Pedido</h3>
               <p>Total a Pagar: ${total}</p>
-              <Link to="/" className="finalizar" onClick={() => venta()}>
+              <button  className="finalizar" onClick={async() => {
+                await venta()
+                await vaciarCarrito()
+                navigate(-1)
+              }}>
                   Comprar
-                </Link>
+                </button>
           </aside>
           </div>
       </main>

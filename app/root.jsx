@@ -83,6 +83,7 @@ export default function App(){
       }
     const vaciarCarrito = () => {
         setCarrito([])
+        alert("Compra Exitosa")
     }
     
     return(

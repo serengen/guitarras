@@ -1,6 +1,7 @@
 import { getGuitarra } from "~/models/guitarras.server";
 import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 export async function loader({params}){
@@ -18,6 +19,7 @@ export async function loader({params}){
 }
 
 function Guitarra() {
+    const navigate = useNavigate();
     const {agregarCarrito} = useOutletContext(); 
     
     const [cantidad, setCantidad] = useState(0)
@@ -40,6 +42,7 @@ function Guitarra() {
             cantidad
         }
         agregarCarrito(guitarraSeleccionada);
+
     }
   return (
     <div className="guitarra">
@@ -64,7 +67,7 @@ function Guitarra() {
                     <option value="5">5</option>
                 </select>
 
-                <input type="submit" value="Agregar al carrito" />
+                <input type="submit" value="Agregar al carrito" onClick={() => navigate(-1)}/>
             </form>
         </div>
     </div>
